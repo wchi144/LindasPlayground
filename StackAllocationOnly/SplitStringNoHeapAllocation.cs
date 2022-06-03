@@ -1,8 +1,4 @@
-﻿/*
- * using code from https://blog.ndepend.com/improve-c-code-performance-with-spant/
-*/
-
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 
 [Orderer(SummaryOrderPolicy.FastestToSlowest)] // Order the result
@@ -10,20 +6,8 @@ using BenchmarkDotNet.Order;
 [MemoryDiagnoser] // Analyse the memory usage
 public class SplitStringNoHeapAllocation
 {
-    //private string _input;
     private const int numberOfElements = 7;
     private const string intput = "1, 20, 35, 130, 3, 10, 160";
-    
-
-    [Params(10, 1000, 10000)]
-    public int Size { get; set; }
-
-    [GlobalSetup]
-    public void Setup()
-    {
-        //_input = Enumerable.Range(0, Size).Select(i => (byte)i).ToArray();
-        //_input = "1, 20, 35, 130, 3, 10, 160";
-    }
 
     // Code to benchmark
     [Benchmark(Baseline = true)]
@@ -54,6 +38,9 @@ public class SplitStringNoHeapAllocation
         return sum;
     }
 
+    /*
+     * using code from https://blog.ndepend.com/improve-c-code-performance-with-spant/
+    */
     public int[] SplitUsingSpan(string input)
     {
         var result = new int[numberOfElements];
